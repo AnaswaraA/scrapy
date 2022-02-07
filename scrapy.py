@@ -8,7 +8,6 @@ class CarbonSpider(scrapy.Spider):
 
       def parse(self, response):
         all_div_quotes = response.css('div.product-detail')
-        # breadcrumbs = all_div_quotes.css('.breadcrumbs::text').extract()
         product_name = response.css(".title ::text").extract_first()
         image_url = response.css("rimage").extract()
         brand = response.css(".vendor ::text")[2].extract()
