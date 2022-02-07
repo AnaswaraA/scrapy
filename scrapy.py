@@ -1,11 +1,16 @@
 import scrapy
-class class ClotheSpider(scrapy.Spider):
-    name = 'clothes'
-    start_urls = [
-        'https://www.carbon38.com/shop-all-activewear/tops',
-    ]
-    
-    def parse(self, response):
-        print(response.css("div.product-block").get())
 
+class CarbonSpider(scrapy.Spider):
+    name = "carbons"
+    start_urls = [
+        "https://carbon38.com/collections/tops/products/miramar-candice-crop"
+    ]
+
+    def parse(self, response):
+        all_div_quotes = response.css('div.product-detail')
+        product_name = response.css(".title-row").extract_first()
+        yield {
+            'product_name': product_name
+          
+        }
     
