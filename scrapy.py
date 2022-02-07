@@ -8,7 +8,7 @@ class CarbonSpider(scrapy.Spider):
 
     def parse(self, response):
         all_div_quotes = response.css('div.product-detail')
-        product_name = response.css(".title-row").extract_first()
+        product_name = response.css(".title ::text").extract_first()
         yield {
             'product_name': product_name
           
