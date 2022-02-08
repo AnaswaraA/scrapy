@@ -29,7 +29,7 @@ class CarbonSpider(scrapy.Spider):
         colour = response.css('.selector-wrapper ::text ')[4].extract()
         description = response.css('details.cc-accordion-item >.cc-accordion-item__panel ::text')[1].extract()
         sku = response.xpath('string(//body)').re(r"sku: (^\W\d-$)")
-        # sku = response.css("details.cc-accordion-item >.cc-accordion-item__panel >.cc-accordion-item__content ::text")[6].extract()
+#         sku = response.css("details.cc-accordion-item >.cc-accordion-item__panel >.cc-accordion-item__content ::text")[6].extract()
         product_id = response.xpath('string(//body)').re(r"product_id: (\d+)")
         sizes = response.css('#SingleOptionSelector-1 option ::text').getall()
         items['breadcrumbs'] = breadcrumbs
