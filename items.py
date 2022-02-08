@@ -16,7 +16,7 @@ class ClotheItem(scrapy.Item):
     reviews = scrapy.Field()
     colour = scrapy.Field()
     sizes = scrapy.Field()
-    description= scrapy.Field()
+    description = scrapy.Field()
     sku = scrapy.Field()
     product_id = scrapy.Field()
 
