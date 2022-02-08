@@ -6,30 +6,37 @@ class CarbonSpider(scrapy.Spider):
         "https://carbon38.com/collections/tops/products/miramar-candice-crop"
     ]
 
-          def parse(self, response):
-        all_div_quotes = response.css('div.product-detail')
-        # breadcrumbs = all_div_quotes.css('.breadcrumbs::text').extract()
+          
+    
+    def parse(self, response):
+        items = ClotheItem()
         product_name = response.css(".title ::text").extract_first()
-        image_url = response.css("rimage").extract()
+        image_url = response.css("img.rimage__image ::attr(src)").get()
         brand = response.css(".vendor ::text")[2].extract()
         price = response.css(".current-price.theme-money::text").get()
         reviews = response.css(".container>.okeReviews >.okeReviews-reviewsWidget-emptyMessage>.p").extract()
         breadcrumbs = response.css('.breadcrumbs-list >li.breadcrumbs-list__item >.breadcrumbs-list__link ::text').extract()
-        # colour = response.css('').extract()
+        colour = response.css('.selector-wrapper ::text ')[4].extract()
         description = response.css('details.cc-accordion-item >.cc-accordion-item__panel ::text')[1].extract()
+        sku = response.css("details.cc-accordion-item >.cc-accordion-item__panel >.cc-accordion-item__content ::text")[6].extract()
+        product_id = response.xpath('string(//body)').re(r"product_id: (\d+)")
+        sizes = response.css('#SingleOptionSelector-1 option ::text').getall()
 
 
 
+        items['breadcrumbs'] = breadcrumbs
+        items['image_url'] = image_url
+        items['brand'] = brand
+        items['product_name'] = product_name
+        items['price'] = price
+        items['reviews'] = reviews
+        items['colour'] = colour
+        items['sizes'] = sizes
+        items['description'] = description
+        items['sku'] = sku
+        items['product_id'] = product_id
 
 
-        yield {
-            'product_name': product_name,
-            'image_url': image_url,
-            'brand': brand,
-            'breadcrumbs': breadcrumbs,
-            'price': price,
-            'reviews': reviews,
-            # 'colour': colour,
-            'description': description,
-        }
+        yield items
+
     
